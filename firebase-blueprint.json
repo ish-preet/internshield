@@ -1,0 +1,70 @@
+{
+  "entities": {
+    "Report": {
+      "title": "Scam Report",
+      "description": "A report submitted by a student about a potential internship scam.",
+      "type": "object",
+      "properties": {
+        "companyName": { "type": "string" },
+        "role": { "type": "string" },
+        "description": { "type": "string" },
+        "scamType": { "type": "string", "enum": ["fake-job", "fee-scam", "phishing", "other"] },
+        "timestamp": { "type": "number" },
+        "riskLevel": { "type": "string", "enum": ["Safe", "Suspicious", "Scam"] },
+        "riskScore": { "type": "number", "description": "AI-generated risk score 0-100" },
+        "aiAnalysis": { "type": "string", "description": "AI-generated detailed analysis" },
+        "redFlags": { "type": "array", "items": { "type": "string" } },
+        "recommendations": { "type": "string" },
+        "authorUid": { "type": "string" },
+        "authorName": { "type": "string" },
+        "upvotes": { "type": "number" },
+        "downvotes": { "type": "number" }
+      },
+      "required": ["companyName", "role", "description", "scamType", "timestamp", "riskLevel", "authorUid"]
+    },
+    "Review": {
+      "title": "Student Review",
+      "description": "A review of an internship experience.",
+      "type": "object",
+      "properties": {
+        "companyName": { "type": "string" },
+        "rating": { "type": "number" },
+        "content": { "type": "string" },
+        "authorUid": { "type": "string" },
+        "authorName": { "type": "string" },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["companyName", "rating", "content", "authorUid", "timestamp"]
+    },
+    "Vote": {
+      "title": "Report Vote",
+      "description": "A vote on a scam report to build trust.",
+      "type": "object",
+      "properties": {
+        "reportId": { "type": "string" },
+        "userUid": { "type": "string" },
+        "type": { "type": "string", "enum": ["up", "down"] }
+      },
+      "required": ["reportId", "userUid", "type"]
+    },
+    "User": {
+      "title": "User Profile",
+      "description": "User profile information.",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "trustScore": { "type": "number" }
+      },
+      "required": ["displayName", "email", "role"]
+    }
+  },
+  "firestore": {
+    "/reports/{reportId}": { "schema": "Report", "description": "Scam reports" },
+    "/reviews/{reviewId}": { "schema": "Review", "description": "Student reviews" },
+    "/votes/{voteId}": { "schema": "Vote", "description": "User votes on reports" },
+    "/users/{userId}": { "schema": "User", "description": "User profiles" }
+  }
+}

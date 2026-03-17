@@ -1,0 +1,5 @@
+{
+  "name": "InternShield",
+  "description": "A professional platform for students to detect and report internship scams, featuring a database of reported companies, verified opportunities, and educational resources.",
+  "requestFramePermissions": ["microphone"]
+}
